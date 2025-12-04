@@ -10,7 +10,7 @@ const parser = new xml2js.Parser()
 
 cat.get('/', (req, res) => {
   axios.get('https://api.github.com/repos/BSData/wh40k-10e/contents/Necrons.cat').then((response) => {
-    console.log(response)
+    // console.log(response)
     let result = decodeAndFix(response.data.content)
     res.json(result)
   })
@@ -18,20 +18,25 @@ cat.get('/', (req, res) => {
 
 function decodeAndFix(input: string): any {
   let decoded = decode(input)
-  let parsed
+  let parsed: Record<string, any> | null = null
   parser.parseString(decoded, (err, result) => {
+    if (err) {
+      throw "uh oh"
+    }
     parsed = result
   })
 
+  if (parsed == null) {
+    return { error: 'something did not work right' }
+  }
   let fixed = recursiveJsonFix(parsed)
-
   return fixed
 }
 
 export default cat
 
-function recursiveJsonFix(obj: any): any {
-  let fixedObj: any = {}
+function recursiveJsonFix(obj: Record<string, any>): Record<string, any> {
+  let fixedObj: Record<string, any> = {}
   for (let property in obj) {
     if (property !== '$') {
       if (typeof obj[property] == "object" && !Array.isArray(obj[property])) {
@@ -57,7 +62,7 @@ function recursiveJsonFix(obj: any): any {
       fixedObj[property] = obj["$"][property]
     }
   }
-  if (obj.hasOwnProperty("$")) {
+  if (obj.hasOwnProperty("_")) {
     fixedObj['value'] = obj['_']
   }
 
