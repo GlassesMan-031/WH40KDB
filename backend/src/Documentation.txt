@@ -1,0 +1,16 @@
+
+Profile information for units (Move, Save, Wounds etc) is under following path
+
+shareSelectionentries/selecetionentry/*unit*/profiles/profile/*unit*/Characteristics/characteristic/n-N
+
+cost information for units (total points for unit excluding additions) is under following path
+shareSelectionentries/selecetionentry/*unit*/costs/cost
+
+Description information for units (faction, infantrytype, character/unit/vehicle) is under following path
+shareSelectionentries/selecetionentry/categoryLinks/categorylink/n-N
+
+Description for rules concerning units (Faction specific rules, leadership rules etc) is undre following path
+shareSelectionentries/selecetionentry/infolinks/infoLink/n-N
+
+Warlord status is under following path
+shareSelectionentries/selecetionentry/entryLinks/entrylink
