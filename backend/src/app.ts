@@ -1,11 +1,14 @@
-import express from "express";
-//import usersRouter from "./routes/users.route";
+import express from 'express'
+import cat from './routes/warhammer.ts'
 
-const app = express();
+const app = express()
 
-app.use(express.json());
+app.use(express.json())
 
-// Routes
-//app.use("/users", usersRouter);
+// middleware??
 
-export default app;
+
+// routes
+app.use('/cat', cat)
+
+export default app
