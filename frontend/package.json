@@ -9,21 +9,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chakra-ui/vue-next": "^1.0.0-alpha.16",
     "@emotion/css": "^11.13.5",
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
-    "tailwindcss": "^4.1.17",
     "vue": "^3.5.24",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "autoprefixer": "^10.4.22",
     "cypress": "^15.7.1",
     "eslint": "^9.39.1",
     "eslint-plugin-vue": "^10.6.2",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
     "vue-tsc": "^3.1.4"
