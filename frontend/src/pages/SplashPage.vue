@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { useRouter } from "vue-router";
+const router = useRouter();
+function goToLogin() {
+  router.push("/login");
+}
+</script>
+
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-300">
     <div
@@ -17,11 +25,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useRouter } from "vue-router";
-const router = useRouter();
-function goToLogin() {
-  router.push("/login");
-}
-</script>
