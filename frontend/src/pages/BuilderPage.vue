@@ -1,11 +1,15 @@
+<script setup lang="ts">
+import Sidebar from "../components/SideBar.vue";
+</script>
+
 <template>
+  <Sidebar />
+
   <div class="page builder">
     <h2>Army Builder</h2>
     <p>Build your army here.</p>
   </div>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped>
 .page {
