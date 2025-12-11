@@ -38,21 +38,21 @@
 
 -- rev 2
 CREATE TABLE IF NOT EXISTS accounts {
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   username varchar NOT NULL,
   pass varchar NOT NULL
 }
 
 CREATE TABLE IF NOT EXISTS armies {
-  id integer PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   owner_id integer REFERENCES accounts (id) ON DELETE CASCADE,
-  name varchar,
-  max_points integer,
+  name varchar NOT NULL,
+  max_points integer NOT NULL,
   created_at timestamp
 }
 
 CREATE TABLE IF NOT EXISTS units {
-  id varchar PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   army_id integer REFERENCES armies (id) ON DELETE CASCADE,
   name varchar NOT NULL,
   xml_id varchar NOT NULL,
