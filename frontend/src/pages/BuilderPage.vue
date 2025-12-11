@@ -4,11 +4,6 @@ import Sidebar from "../components/SideBar.vue";
 
 <template>
   <Sidebar />
-
-  <div class="page builder">
-    <h2>Army Builder</h2>
-    <p>Build your army here.</p>
-  </div>
 </template>
 
 <style scoped>
