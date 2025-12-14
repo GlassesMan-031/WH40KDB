@@ -37,24 +37,24 @@
 -- }
 
 -- rev 2
-CREATE TABLE IF NOT EXISTS accounts {
+CREATE TABLE IF NOT EXISTS accounts (
   id SERIAL PRIMARY KEY,
   username varchar NOT NULL,
   pass varchar NOT NULL
-}
+)
 
-CREATE TABLE IF NOT EXISTS armies {
+CREATE TABLE IF NOT EXISTS armies (
   id SERIAL PRIMARY KEY,
   owner_id integer REFERENCES accounts (id) ON DELETE CASCADE,
   name varchar NOT NULL,
   max_points integer NOT NULL,
   created_at timestamp
-}
+)
 
-CREATE TABLE IF NOT EXISTS units {
+CREATE TABLE IF NOT EXISTS units (
   id SERIAL PRIMARY KEY,
   army_id integer REFERENCES armies (id) ON DELETE CASCADE,
   name varchar NOT NULL,
   xml_id varchar NOT NULL,
   selection json NOT NULL
-}
+)
