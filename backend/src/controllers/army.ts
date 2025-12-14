@@ -9,10 +9,12 @@ import {
 // get army "/army/" {username_or_email: string, password: string}
 export async function getArmy(req: Request, res: Response) {
   const armyId = Number(req.params.id)
+  console.log('armyid: ' + armyId)
 
   const result = await findArmyById(armyId)
-
-  res.status(200).send('army found')
+  if (result) {
+    res.status(200).send(result)
+  } else res.status(500).send("couldn't find the army")
 }
 
 // post army "/army/" {username: string, email: string, password: string}
@@ -26,7 +28,7 @@ export async function newArmy(req: Request, res: Response) {
     armyObject.max_points,
   )
 
-  res.status(200).send('army created')
+  res.status(200).send(result)
 }
 // post army "/army/" {username_or_email: string, password: string}
 export async function removeArmy(req: Request, res: Response) {
@@ -34,7 +36,11 @@ export async function removeArmy(req: Request, res: Response) {
 
   const result = await deleteArmy(armyId)
 
-  res.status(200).send('army deleted')
+  if (result) {
+    res.status(200).send('army deleted')
+  } else {
+    res.status(500).send('army not deleted')
+  }
 }
 
 // post army "/army/" {username?: string, email?: string, password?: string} NOTE that body keys are optional!!
@@ -46,5 +52,9 @@ export async function editArmy(req: Request, res: Response) {
 
   const result = await updateArmy(armyId, name, max_points)
 
-  res.status(200).send('army edited')
+  if (result) {
+    res.status(200).send('army edited')
+  } else {
+    res.status(500).send('army not edited')
+  }
 }

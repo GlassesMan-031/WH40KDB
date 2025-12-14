@@ -7,10 +7,10 @@ const army = express.Router()
 // ex:
 // army.use(auth_middleware)
 
-// get army "/army/:id" {username_or_email: string, password: string}
+// get army "/army/:id" no body
 army.get('/:id', getArmy)
 
-// post army "/army/" {username: string, email: string, password: string}
+// post army "/army/" {owner_id: number, name: string, max_points: number}
 army.post('/', newArmy)
 
 // post army "/army/:id" {username_or_email: string, password: string}

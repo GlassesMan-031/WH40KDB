@@ -5,9 +5,14 @@ export async function findArmyById(id: number) {
   const result = await db
     .one(`SELECT * FROM army WHERE army.id = $1`, [id])
     .then((data) => {
-      return data.data
+      return data
+    })
+    .catch((err) => {
+      console.log(err)
+      return false
     })
 
+  console.log(result)
   return result
 }
 
@@ -19,15 +24,14 @@ export async function insertArmy(
   max_points: number,
 ) {
   const result = await db
-    .one(`INSERT INTO army(owner_id, name, max_points) VALUES($1, $2, $3)`, [
-      owner_id,
-      name,
-      max_points,
-    ])
+    .one(
+      `INSERT INTO army(owner_id, name, max_points) VALUES($1, $2, $3) RETURNING *`,
+      [owner_id, name, max_points],
+    )
     .then((data) => {
-      return data.data
+      return data
     })
-
+  console.log(result)
   return result
 }
 // post army "/army/" {username_or_email: string, password: string}
@@ -35,7 +39,11 @@ export async function deleteArmy(id: number) {
   const result = await db
     .one(`DELETE FROM army WHERE army.id = $1`, [id])
     .then((data) => {
-      return data.data
+      return true
+    })
+    .catch((err) => {
+      console.log(err)
+      return false
     })
 
   return result
@@ -68,9 +76,14 @@ export async function updateArmy(
 
   setValues.push(id)
   const result = await db
-    .one(`UPDATE army ${set} WHERE army.id = $${setValues.length}`, setValues)
+    .none(`UPDATE army ${set} WHERE army.id = $${setValues.length}`, setValues)
     .then((data) => {
-      return data.data
+      console.log(data)
+      return true
+    })
+    .catch((err) => {
+      console.log(err)
+      return false
     })
 
   return result
