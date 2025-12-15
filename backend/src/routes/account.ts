@@ -1,5 +1,10 @@
 import express from 'express'
-import { findExisting, create, findAndDelete, editExisting } from '../controllers/account.ts'
+import {
+  findExisting,
+  create,
+  findAndDelete,
+  editExisting,
+} from '../controllers/account.ts'
 
 const account = express.Router()
 
