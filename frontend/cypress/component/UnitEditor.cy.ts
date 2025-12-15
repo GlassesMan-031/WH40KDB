@@ -7,7 +7,7 @@ describe("UnitEditor.cy.ts", () => {
 
   // it should load the component with the correct bare minimums parts
   it("component", () => {
-    cy.mount(UnitEditor);
+    cy.mount(UnitEditor, {});
     cy.get("#uniteditor").should("exist");
   });
   // it should have the correct mock data
@@ -21,7 +21,7 @@ describe("UnitEditor.cy.ts", () => {
         unitData: unit,
       },
     });
-    cy.get("#unitname").should("have.value", unit.name);
+    cy.get("#unitname").should("have.text", unit.name);
   });
 
   // maybe have a beforeeach here
