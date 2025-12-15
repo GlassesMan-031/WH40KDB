@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import Sidebar from "../components/SideBar.vue";
+import UnitSelectionCard from "../components/UnitSelectionCard.vue";
 </script>
 
 <template>
-  <Sidebar />
+  <div class="flex h-screen bg-gray-300">
+    <Sidebar />
+
+    <main class="flex-1 p-8 overflow-y-auto">
+      <UnitSelectionCard @select="(unit) => console.log('Selected:', unit)" />
+    </main>
+  </div>
 </template>
 
-<style scoped>
-.page {
-  padding: 24px;
-}
-</style>
+<style scoped></style>
