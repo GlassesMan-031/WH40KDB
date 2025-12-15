@@ -56,16 +56,13 @@ onMounted(() => fetchUnits());
 
 <template>
   <section class="bg-gray-200 rounded-lg shadow-md p-6 flex flex-col h-full">
-    <!-- Header -->
     <h3 class="text-xl font-semibold mb-4 flex-shrink-0">Unit Selection</h3>
 
-    <!-- Loading / empty -->
     <p v-if="loading" class="text-gray-600">Loading units…</p>
     <p v-else-if="units.length === 0" class="text-gray-600">
       No units available.
     </p>
 
-    <!-- Scrollable list -->
     <div
       v-else
       class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
