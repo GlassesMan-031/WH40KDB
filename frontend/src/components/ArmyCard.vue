@@ -13,13 +13,13 @@ const props = defineProps<{
 }>();
 
 const totalPoints = computed(() =>
-  props.selectedUnits.reduce((sum, unit) => sum + unit.points, 0)
+  props.selectedUnits.reduce((sum, unit) => sum + unit.points, 0),
 );
 </script>
 
 <template>
-  <section class="bg-gray-100 rounded-lg shadow-md p-6 flex flex-col h-full">
-    <h3 class="text-xl font-semibold mb-4 flex-shrink-0">Final Army</h3>
+  <section class="bg-gray-100 rounded-lg shadow-md p-6 flex flex-col basis-2">
+    <h3 class="text-xl font-semibold mb-4 shrink-0">Final Army</h3>
 
     <div
       v-if="props.selectedUnits.length > 0"
@@ -30,6 +30,7 @@ const totalPoints = computed(() =>
           v-for="unit in props.selectedUnits"
           :key="unit.id"
           class="flex justify-between items-center p-2 rounded-md bg-gray-200"
+          @click="$emit('unitClicked', unit.id)"
         >
           <span class="flex items-center gap-1">
             {{ unit.name }}

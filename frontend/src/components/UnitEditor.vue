@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
+import axios from "axios";
+import type { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
+import { ref } from "vue";
 
 type Unit = {
   id: number;
@@ -12,12 +13,26 @@ type Unit = {
 const props = defineProps<{
   unitData: Unit;
 }>();
+
+const unitProfile = ref(null);
+
+async function fetchUnitData() {
+  try {
+    const { data } = await axios.get("/api/warhammer");
+
+    const entries: any[] =
+      data?.catalogue?.sharedSelectionEntries?.selectionEntry ?? [];
+    unitProfile.value = entries.find((entry) => entry.id === props.unitData.id);
+  } catch (err) {
+    console.log("uh oh");
+  }
+}
 </script>
 
 <template>
   <section
     id="uniteditor"
-    class="bg-gray-100 rounded-lg shadow-md p-6 flex flex-col h-full"
+    class="bg-gray-100 rounded-lg shadow-md p-6 flex flex-col"
   >
     <h3
       id="unitname"

@@ -3,6 +3,7 @@ import { ref } from "vue";
 import Sidebar from "../components/SideBar.vue";
 import UnitSelectionCard from "../components/UnitSelectionCard.vue";
 import FinalArmyCard from "../components/ArmyCard.vue";
+import UnitEditor from "../components/UnitEditor.vue";
 
 type Unit = {
   id: number;
@@ -12,11 +13,23 @@ type Unit = {
 };
 
 const selectedUnits = ref<Unit[]>([]);
-
 function handleUnitSelect(unit: Unit) {
   if (!selectedUnits.value.find((u) => u.id === unit.id)) {
     selectedUnits.value.push(unit);
   }
+}
+
+const showEditor = ref(false);
+const selectedUnit = ref<Unit | null>(null);
+
+function showUnitEditor(id: number) {
+  console.log("func");
+  const u = selectedUnits.value.find((u) => u.id === id);
+  selectedUnit.value = u ? u : null;
+  if (selectedUnit.value === null) {
+    return;
+  }
+  showEditor.value = true;
 }
 </script>
 <template>
@@ -29,10 +42,19 @@ function handleUnitSelect(unit: Unit) {
         class="flex-1 max-w-md h-full"
       />
 
-      <FinalArmyCard
-        :selectedUnits="selectedUnits"
-        class="flex-1 max-w-md h-full"
-      />
+      <div class="h-full flex flex-col">
+        <FinalArmyCard
+          :selectedUnits="selectedUnits"
+          @unit-clicked="showUnitEditor"
+          class="max-w-md flex-2"
+        />
+
+        <UnitEditor
+          v-if="showEditor"
+          :unitData="selectedUnit!"
+          class="flex-1"
+        />
+      </div>
     </main>
   </div>
 </template>
