@@ -1,4 +1,4 @@
-interface selectionGroup {
+export interface selectionGroup {
   type: "group";
   name: string;
   xml_id: string;
@@ -6,7 +6,7 @@ interface selectionGroup {
   data: (selectionGroup | selectionEntry)[];
 }
 
-interface selectionEntry {
+export interface selectionEntry {
   type: "entry";
   name: string;
   xml_id: string;
