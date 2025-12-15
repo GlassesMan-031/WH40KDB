@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import type { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 type Unit = {
   id: number;
@@ -14,7 +14,7 @@ const props = defineProps<{
   unitData: Unit;
 }>();
 
-const unitProfile = ref(null);
+const unitProfile = ref<any | null>(null);
 
 async function fetchUnitData() {
   try {
@@ -27,6 +27,10 @@ async function fetchUnitData() {
     console.log("uh oh");
   }
 }
+
+onMounted(() => {
+  fetchUnitData();
+});
 </script>
 
 <template>
@@ -41,6 +45,22 @@ async function fetchUnitData() {
     >
       {{ props.unitData.name }}
     </h3>
+    <div v-if="unitProfile != null">
+      <div id="unitstats">
+        <h5 class="text-lg font-semibold shrink-0">Stats</h5>
+        <ul>
+          <li
+            v-for="value in unitProfile.profiles?.profile.find((p: any) => {
+              if (p.typeName === 'Unit') {
+                return p;
+              }
+            }).characteristics.characteristic"
+          >
+            {{ value.name }}: {{ value.value }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </section>
 </template>
 
