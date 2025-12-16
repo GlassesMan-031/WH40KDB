@@ -10,20 +10,20 @@ const props = defineProps<{
   <div>
     <h3
       id="unitname"
-      class="text-xl font-semibold mb-4 shrink-0"
+      class="font-semibold mb-4 shrink-0"
       v-if="!props.group.is_root"
     >
       {{ props.group.name }}
     </h3>
     <ul>
       <li v-for="(entryItem, index) in group.data" :key="index">
-        <input
-          v-if="entryItem.type === 'entry'"
-          type="checkbox"
-          :value="entryItem.checked"
-        />{{ entryItem.name }}
+        <div v-if="entryItem.type === 'entry'">
+          <input type="checkbox" :checked="entryItem.checked" />{{
+            entryItem.name
+          }}
+        </div>
         <EntryGroupBlock
-          v-if="entryItem.type === 'group'"
+          v-if="entryItem.type === 'group' && entryItem.data.length > 0"
           :group="entryItem"
         ></EntryGroupBlock>
       </li>

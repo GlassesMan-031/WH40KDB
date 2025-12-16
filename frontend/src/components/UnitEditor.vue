@@ -29,6 +29,7 @@ async function fetchUnitData() {
     function selectionGroupCrawl(group: any, is_root: boolean): selectionGroup {
       console.log("newCrawl");
       console.log(group);
+      let firstSelectable = true;
       let newGroup: selectionGroup = {
         type: "group",
         name: group.name,
@@ -36,17 +37,35 @@ async function fetchUnitData() {
         is_root: is_root,
         data: [],
       };
-      if (group.selectionEntries) {
+      if (
+        group.selectionEntries &&
+        group.selectionEntries.selectionEntry.length > 0
+      ) {
         console.log("has entry");
         group.selectionEntries.selectionEntry.forEach((entry: any) => {
           let newEntry: selectionEntry = {
             type: "entry",
             name: entry.name,
             xml_id: entry.id,
-            checked: false,
+            checked: firstSelectable,
           };
+          firstSelectable = firstSelectable ? false : true;
           newGroup.data.push(newEntry);
         });
+      } else if (
+        group.selectionEntries &&
+        group.selectionEntries.selectionEntry.type === "model"
+      ) {
+        let entry = group.selectionEntries.selectionEntry;
+        let newEntry: selectionGroup = {
+          type: "group",
+          is_root: false,
+          name: entry.name,
+          xml_id: entry.id,
+          data: [],
+        };
+        newEntry.data.push(selectionGroupCrawl(entry, false));
+        newGroup.data.push(newEntry);
       }
       if (group.selectionEntryGroups) {
         console.log("has group");
@@ -87,7 +106,7 @@ watch(props, (_newVal) => {
 <template>
   <section
     id="uniteditor"
-    class="bg-gray-100 rounded-lg shadow-md p-6 flex flex-col"
+    class="bg-gray-200 rounded-lg shadow-md p-6 flex flex-col"
   >
     <h3
       id="unitname"
@@ -99,20 +118,22 @@ watch(props, (_newVal) => {
     <div v-if="unitProfile != null" class="flex flex-row">
       <div id="unitstats" class="flex-1">
         <h5 class="text-lg font-semibold shrink-0">Stats</h5>
-        <ul>
+        <ul class="mr-8">
           <li
             v-for="value in unitProfile.profiles?.profile.find((p: any) => {
               if (p.typeName === 'Unit') {
                 return p;
               }
             }).characteristics.characteristic"
+            class="min-h-6 pl-2 pr-2 bg-gray-100 rounded-lg mb-2"
           >
-            {{ value.name }}: {{ value.value }}
+            <span class="float-left"> {{ value.name }}:</span
+            ><span class="float-right">{{ value.value }}</span>
           </li>
         </ul>
       </div>
-      <div id="unitselections" class="flex-3">
-        <h5>Selections</h5>
+      <div id="unitselections" class="flex-3" v-if="unitSelections">
+        <h5 class="text-lg font-semibold shrink-0">Selections</h5>
         <EntryGroupBlock :group="unitSelections"></EntryGroupBlock>
       </div>
     </div>
