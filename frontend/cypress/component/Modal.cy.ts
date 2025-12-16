@@ -1,4 +1,4 @@
-import { it } from "node:test";
+import Modal from "../../src/components/Modal.vue";
 
 describe("Modal.cy.ts", () => {
   it("should mount", () => {
@@ -11,8 +11,8 @@ describe("Modal.cy.ts", () => {
     cy.mount(Modal);
 
     cy.get(".modal-mask").should("exist");
-    cy.get(".modal-mask > modal-wrapper").should("exist");
-    cy.get(".modal-mask > modal-wrapper > modal-container").should("exist");
+    cy.get(".modal-mask > .modal-wrapper").should("exist");
+    cy.get(".modal-mask > .modal-wrapper > .modal-container").should("exist");
   });
 
   it("should have the correct header", () => {
