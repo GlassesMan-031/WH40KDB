@@ -37,6 +37,7 @@ async function fetchUnitData() {
         is_root: is_root,
         data: [],
       };
+      // crawl through entries
       if (
         group.selectionEntries &&
         group.selectionEntries.selectionEntry.length > 0
@@ -52,21 +53,33 @@ async function fetchUnitData() {
           firstSelectable = firstSelectable ? false : true;
           newGroup.data.push(newEntry);
         });
-      } else if (
-        group.selectionEntries &&
-        group.selectionEntries.selectionEntry.type === "model"
-      ) {
-        let entry = group.selectionEntries.selectionEntry;
-        let newEntry: selectionGroup = {
-          type: "group",
-          is_root: false,
-          name: entry.name,
-          xml_id: entry.id,
-          data: [],
-        };
-        newEntry.data.push(selectionGroupCrawl(entry, false));
-        newGroup.data.push(newEntry);
+      } else if (group.selectionEntries) {
+        if (group.selectionEntries.selectionEntry.type === "model") {
+          console.log("has solo entry");
+          let entry = group.selectionEntries.selectionEntry;
+          let newEntry: selectionGroup = {
+            type: "group",
+            is_root: true,
+            name: entry.name,
+            xml_id: entry.id,
+            data: [],
+          };
+          newEntry.data.push(selectionGroupCrawl(entry, false));
+          newGroup.data.push(newEntry);
+        }
+        if (group.selectionEntries.selectionEntry.type !== "model") {
+          console.log("has solo entry (non model)");
+          let entry = group.selectionEntries.selectionEntry;
+          let newEntry: selectionEntry = {
+            type: "entry",
+            name: entry.name,
+            xml_id: entry.id,
+            checked: false,
+          };
+          newGroup.data.push(newEntry);
+        }
       }
+      // crawl through groups
       if (group.selectionEntryGroups) {
         console.log("has group");
         // group.selectionEntryGroups.selectionEntryGroup.forEach(
@@ -125,7 +138,7 @@ watch(props, (_newVal) => {
                 return p;
               }
             }).characteristics.characteristic"
-            class="min-h-6 pl-2 pr-2 bg-gray-100 rounded-lg mb-2"
+            class="min-h-6 pl-2 pr-2 bg-gray-100 rounded-lg mb-2 shadow-sm"
           >
             <span class="float-left"> {{ value.name }}:</span
             ><span class="float-right">{{ value.value }}</span>

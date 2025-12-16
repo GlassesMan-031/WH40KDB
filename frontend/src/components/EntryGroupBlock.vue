@@ -7,7 +7,13 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div>
+  <div
+    :class="
+      props.group.is_root
+        ? 'bg-gray-100 p-2 rounded-lg shadow-md ring-gray-200 ring-1'
+        : ''
+    "
+  >
     <h3
       id="unitname"
       class="font-semibold mb-4 shrink-0"
