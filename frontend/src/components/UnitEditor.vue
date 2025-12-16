@@ -20,7 +20,7 @@ const unitSelections = ref<selectionGroup | null>(null);
 
 async function fetchUnitData() {
   try {
-    const { data } = await axios.get("/api/warhammer");
+    const { data } = await axios.get("/api/cat");
 
     const entries: any[] =
       data?.catalogue?.sharedSelectionEntries?.selectionEntry ?? [];

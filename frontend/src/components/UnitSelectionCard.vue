@@ -29,7 +29,7 @@ async function fetchUnits() {
   error.value = null;
 
   try {
-    const { data } = await axios.get("/api/warhammer");
+    const { data } = await axios.get("/api/cat");
 
     const entries =
       data?.catalogue?.sharedSelectionEntries?.selectionEntry ?? [];
