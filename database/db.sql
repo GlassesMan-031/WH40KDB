@@ -43,8 +43,8 @@ DROP TABLE IF EXISTS unit;
 
 CREATE TABLE IF NOT EXISTS account (
   id SERIAL PRIMARY KEY,
-  username varchar NOT NULL,
-  email varchar NOT NULL,
+  username varchar NOT NULL UNIQUE,
+  email varchar NOT NULL UNIQUE,
   password varchar NOT NULL
 );
 
