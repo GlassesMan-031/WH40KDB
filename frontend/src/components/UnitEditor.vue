@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import type { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 type Unit = {
   id: number;
@@ -15,6 +15,7 @@ const props = defineProps<{
 }>();
 
 const unitProfile = ref<any | null>(null);
+const unitSelections = ref<selectionGroup | null>(null);
 
 async function fetchUnitData() {
   try {
@@ -23,12 +24,61 @@ async function fetchUnitData() {
     const entries: any[] =
       data?.catalogue?.sharedSelectionEntries?.selectionEntry ?? [];
     unitProfile.value = entries.find((entry) => entry.id === props.unitData.id);
+
+    function selectionGroupCrawl(group: any, is_root: boolean): selectionGroup {
+      console.log("newCrawl");
+      console.log(group);
+      let newGroup: selectionGroup = {
+        type: "group",
+        name: group.name,
+        xml_id: group.id,
+        is_root: is_root,
+        data: [],
+      };
+      if (group.selectionEntries) {
+        console.log("has entry");
+        group.selectionEntries.selectionEntry.forEach((entry: any) => {
+          let newEntry: selectionEntry = {
+            type: "entry",
+            name: entry.name,
+            xml_id: entry.id,
+            checked: false,
+          };
+          newGroup.data.push(newEntry);
+        });
+      }
+      if (group.selectionEntryGroups) {
+        console.log("has group");
+        // group.selectionEntryGroups.selectionEntryGroup.forEach(
+        //   (entryGroup: any) => {
+        //     let newEntryGroup: selectionGroup = selectionGroupCrawl(entryGroup);
+        //     newGroup.data.push(newEntryGroup);
+        //   },
+        // );
+        let newEntryGroup: selectionGroup = selectionGroupCrawl(
+          group.selectionEntryGroups.selectionEntryGroup,
+          false,
+        );
+        newGroup.data.push(newEntryGroup);
+      }
+      return newGroup;
+    }
+    console.log("crawling");
+    unitSelections.value = selectionGroupCrawl(unitProfile.value, true);
+    console.log("finished");
+    console.log(unitSelections.value);
   } catch (err) {
+    console.log(err);
     console.log("uh oh");
   }
 }
 
 onMounted(() => {
+  fetchUnitData();
+});
+
+watch(props, (_newVal) => {
+  console.log("change watched");
   fetchUnitData();
 });
 </script>
@@ -45,8 +95,8 @@ onMounted(() => {
     >
       {{ props.unitData.name }}
     </h3>
-    <div v-if="unitProfile != null">
-      <div id="unitstats">
+    <div v-if="unitProfile != null" class="flex flex-row">
+      <div id="unitstats" class="flex-1">
         <h5 class="text-lg font-semibold shrink-0">Stats</h5>
         <ul>
           <li
@@ -59,6 +109,9 @@ onMounted(() => {
             {{ value.name }}: {{ value.value }}
           </li>
         </ul>
+      </div>
+      <div id="unitselections" class="flex-3">
+        <h5>Selections</h5>
       </div>
     </div>
   </section>

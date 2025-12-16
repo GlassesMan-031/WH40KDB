@@ -42,11 +42,11 @@ function showUnitEditor(id: number) {
         class="flex-1 max-w-md h-full"
       />
 
-      <div class="h-full flex flex-col">
+      <div class="h-full flex-1 flex flex-col gap-6">
         <FinalArmyCard
           :selectedUnits="selectedUnits"
           @unit-clicked="showUnitEditor"
-          class="max-w-md flex-2"
+          class="lg:max-w-md xl:max-w-full flex-2"
         />
 
         <UnitEditor
