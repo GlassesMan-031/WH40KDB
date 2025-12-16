@@ -114,6 +114,12 @@ watch(props, (_newVal) => {
   console.log("change watched");
   fetchUnitData();
 });
+
+function updateUnitSaveData(group: selectionGroup) {
+  // todo
+  console.log(group);
+  return;
+}
 </script>
 
 <template>
@@ -147,7 +153,15 @@ watch(props, (_newVal) => {
       </div>
       <div id="unitselections" class="flex-3" v-if="unitSelections">
         <h5 class="text-lg font-semibold shrink-0">Selections</h5>
-        <EntryGroupBlock :group="unitSelections"></EntryGroupBlock>
+        <EntryGroupBlock
+          :group="unitSelections"
+          :rootIndex="0"
+          @groupUpdate="
+            (d) => {
+              updateUnitSaveData(d.group);
+            }
+          "
+        ></EntryGroupBlock>
       </div>
     </div>
   </section>

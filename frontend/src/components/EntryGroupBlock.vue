@@ -3,7 +3,30 @@ import type { selectionGroup } from "../utils/interfaces.ts";
 
 const props = defineProps<{
   group: selectionGroup;
+  rootIndex: number;
 }>();
+
+const emit = defineEmits<{
+  (
+    e: "groupUpdate",
+    { group, index }: { group: selectionGroup; index: number },
+  ): void;
+}>();
+
+function changeEntry(index: number, newGroup?: selectionGroup) {
+  console.log("changin entry");
+  if (props.group.data[index]?.type === "entry") {
+    props.group.data[index].checked = !props.group.data[index].checked;
+    emit("groupUpdate", { group: props.group, index: props.rootIndex });
+  }
+  if (props.group.data[index]?.type === "group") {
+    if (newGroup === undefined) {
+      return;
+    }
+    props.group.data[index] = newGroup;
+    emit("groupUpdate", { group: props.group, index: props.rootIndex });
+  }
+}
 </script>
 
 <template>
@@ -24,13 +47,21 @@ const props = defineProps<{
     <ul>
       <li v-for="(entryItem, index) in group.data" :key="index">
         <div v-if="entryItem.type === 'entry'">
-          <input type="checkbox" :checked="entryItem.checked" />{{
-            entryItem.name
-          }}
+          <input
+            type="checkbox"
+            :checked="entryItem.checked"
+            @change="changeEntry(index)"
+          />{{ entryItem.name }}
         </div>
         <EntryGroupBlock
           v-if="entryItem.type === 'group' && entryItem.data.length > 0"
           :group="entryItem"
+          :rootIndex="index"
+          @group-update="
+            (d) => {
+              changeEntry(d.index, d.group);
+            }
+          "
         ></EntryGroupBlock>
       </li>
     </ul>
