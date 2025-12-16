@@ -62,13 +62,13 @@ function createNewArmy(event: SubmitEvent) {
             id="army-name"
             type="text"
             placeholder="Army name"
-            class="border-b-2 border-gray-300 w-3/5"
+            class="border-b-2 border-gray-400 w-3/5"
           />
         </div>
         <div class="flex flex-row gap-4">
           <label for="army-number" class="block">Points:</label>
           <input
-            class="w-fit inline-block"
+            class="w-fit inline-block border-b-2 border-gray-400"
             id="army-number"
             type="number"
             min="0"

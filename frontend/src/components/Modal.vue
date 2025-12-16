@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="modal-mask">
+  <div class="modal-mask" @click="$emit('maskclick')">
     <div class="modal-wrapper">
-      <div id="modal" class="modal-container">
+      <div id="modal" class="modal-container shadow-2xl">
         <div class="modal-header"><slot name="header"></slot></div>
         <div class="modal-body"><slot name="body"></slot></div>
         <div class="modal-footer"><slot name="footer"></slot></div>
@@ -41,6 +41,7 @@
 
 .modal-header {
   margin-top: 0;
+  border-bottom: 2px var(--color-gray-400) solid;
 }
 
 .modal-body {
