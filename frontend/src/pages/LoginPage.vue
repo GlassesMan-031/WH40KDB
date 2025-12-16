@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import axios from "axios";
 import { ref } from "vue";
 
 const router = useRouter();
@@ -9,7 +10,17 @@ const password = ref("");
 
 function handleLogin() {
   console.log("Logging in with:", username.value, password.value);
-  // placeholder so that we can connect it to backend later
+  axios
+    .post("/api/account/login", {
+      username_or_email: username.value,
+      password: password.value,
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        router.push("/army-roster");
+      }
+    });
 }
 
 function goToRegister() {

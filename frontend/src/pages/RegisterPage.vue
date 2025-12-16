@@ -1,7 +1,7 @@
 <template>
   <div class="page register">
     <h2>Register</h2>
-    <form @submit.prevent>
+    <form @submit="signup($event)">
       <input v-model="username" type="text" placeholder="Username" />
       <input v-model="email" type="email" placeholder="Email" />
       <input v-model="password" type="password" placeholder="Password" />
@@ -11,10 +11,31 @@
 </template>
 
 <script setup lang="ts">
+import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const username = ref("");
 const email = ref("");
 const password = ref("");
+
+function signup(event: SubmitEvent) {
+  event.preventDefault();
+  axios
+    .post("/api/account", {
+      username: username.value,
+      email: email.value,
+      password: password.value,
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        router.push("/login");
+      }
+    });
+}
 </script>
 
 <style scoped>
