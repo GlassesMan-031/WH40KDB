@@ -8,7 +8,13 @@ export default defineConfig({
   server: {
     proxy: {
       // Proxy all /api requests to port 3000
-      "/api": "http://localhost:3000",
+      "/api": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+      // "/api": "http://localhost:3000",
     },
   },
 });
