@@ -4,7 +4,7 @@ describe("Modal.cy.ts", () => {
   it("should mount", () => {
     cy.mount(Modal);
 
-    cy.get("#modal").should("not.exist");
+    cy.get("#modal").should("exist");
   });
 
   it("should have the correct structure", () => {
