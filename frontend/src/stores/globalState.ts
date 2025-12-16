@@ -1,0 +1,17 @@
+export interface accountState {
+  id?: number;
+  username?: string;
+  email?: string;
+}
+
+const accountState: { value: accountState } = { value: {} };
+
+// sets the accountState to the newState value
+export function setAccount(newState: accountState) {
+  accountState.value = newState;
+}
+
+// gets the accountState and provides its whole value
+export function getAccount() {
+  return accountState.value;
+}
