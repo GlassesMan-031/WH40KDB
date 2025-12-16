@@ -3,7 +3,7 @@ import db from './../db/db.ts'
 export async function getAccount(username_or_email: string, password: string) {
   const result = await db
     .one(
-      'SELECT * FROM account WHERE (email = $1 OR username = $1) AND password=$2;',
+      'SELECT id, username, email FROM account WHERE (email = $1 OR username = $1) AND password=$2;',
       [username_or_email, password],
     )
     .then((data) => {

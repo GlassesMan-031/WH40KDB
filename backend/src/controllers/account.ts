@@ -22,7 +22,7 @@ export async function findExisting(
 
   const result = await getAccount(username_or_email, password)
   if (result) {
-    res.status(200).send('correct login credentials')
+    res.status(200).json(result)
   } else {
     res.status(500).send('uh oh')
   }
