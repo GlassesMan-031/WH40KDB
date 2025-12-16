@@ -32,7 +32,7 @@ function signup(event: SubmitEvent) {
     .then((res) => {
       console.log(res);
       if (res.status === 200) {
-        router.push("/army-roster");
+        router.push("/login");
       }
     });
 }

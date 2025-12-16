@@ -12,10 +12,8 @@ function handleLogin() {
   console.log("Logging in with:", username.value, password.value);
   axios
     .post("/api/account/login", {
-      data: {
-        username_or_email: username.value,
-        password: password.value,
-      },
+      username_or_email: username.value,
+      password: password.value,
     })
     .then((res) => {
       console.log(res);
