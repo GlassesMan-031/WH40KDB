@@ -13,6 +13,10 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const username = ref("");
 const email = ref("");
 const password = ref("");
@@ -27,6 +31,9 @@ function signup(event: SubmitEvent) {
     })
     .then((res) => {
       console.log(res);
+      if (res.status === 200) {
+        router.push("/army-roster");
+      }
     });
 }
 </script>
