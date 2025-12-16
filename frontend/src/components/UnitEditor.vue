@@ -115,6 +115,7 @@ watch(props, (_newVal) => {
   fetchUnitData();
 });
 
+// use this to update unit data in the backend
 function updateUnitSaveData(group: selectionGroup) {
   // todo
   console.log(group);
