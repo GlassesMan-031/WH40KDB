@@ -3,6 +3,13 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import { extractPoints } from "../utils/CatHelpers.ts";
 
+const props = defineProps<{
+  armyId: number;
+}>();
+
+// hardcoded value for testing
+// const armyId = 1; 
+
 type Unit = {
   id: number;
   name: string;
@@ -19,9 +26,34 @@ const emit = defineEmits<{
   (e: "select", unit: Unit): void;
 }>();
 
-function selectUnit(unit: Unit) {
+
+async function selectUnit(unit: Unit) {
   selectedUnitId.value = unit.id;
   emit("select", unit);
+
+  if (!props.armyId) {
+    console.error("armyId is missing!");
+    return;
+  }
+
+  console.log("Posting unit to backend", {
+    armyId: props.armyId,
+    unit,
+  });
+
+  try {
+    const response = await axios.post(
+      `api/unit/${props.armyId}`,
+      {
+        name: unit.name,
+        xml_id: unit.id.toString(),
+        selection: unit,
+      }
+    );
+    console.log("Unit saved successfully:", response.data);
+  } catch (err) {
+    console.error("Failed to save unit:", err);
+  }
 }
 
 async function fetchUnits() {
@@ -56,16 +88,13 @@ onMounted(() => fetchUnits());
 
 <template>
   <section class="bg-gray-200 rounded-lg shadow-md p-6 flex flex-col h-full">
-    <!-- Header -->
     <h3 class="text-xl font-semibold mb-4 flex-shrink-0">Unit Selection</h3>
 
-    <!-- Loading / empty -->
     <p v-if="loading" class="text-gray-600">Loading units…</p>
     <p v-else-if="units.length === 0" class="text-gray-600">
       No units available.
     </p>
 
-    <!-- Scrollable list -->
     <div
       v-else
       class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
