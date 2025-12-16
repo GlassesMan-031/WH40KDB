@@ -2,6 +2,7 @@
 import axios from "axios";
 import type { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
 import { onMounted, ref, watch } from "vue";
+import EntryGroupBlock from "./EntryGroupBlock.vue";
 
 type Unit = {
   id: number;
@@ -112,6 +113,7 @@ watch(props, (_newVal) => {
       </div>
       <div id="unitselections" class="flex-3">
         <h5>Selections</h5>
+        <EntryGroupBlock :group="unitSelections"></EntryGroupBlock>
       </div>
     </div>
   </section>
