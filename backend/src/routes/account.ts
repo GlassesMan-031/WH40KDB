@@ -13,7 +13,7 @@ const account = express.Router()
 // acccount.use(auth_middleware)
 
 // get account "/account/" {username_or_email: string, password: string}
-account.get('/', findExisting)
+account.post('/login', findExisting)
 
 // post account "/account/" {username: string, email: string, password: string}
 account.post('/', create)
