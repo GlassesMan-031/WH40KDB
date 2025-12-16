@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS account (
 
 CREATE TABLE IF NOT EXISTS army (
   id SERIAL PRIMARY KEY,
-  owner_id integer REFERENCES accounts (id) ON DELETE CASCADE,
+  owner_id integer REFERENCES account (id) ON DELETE CASCADE,
   name varchar NOT NULL,
   max_points integer NOT NULL,
   created_at timestamp
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS army (
 
 CREATE TABLE IF NOT EXISTS unit (
   id SERIAL PRIMARY KEY,
-  army_id integer REFERENCES armies (id) ON DELETE CASCADE,
+  army_id integer REFERENCES army (id) ON DELETE CASCADE,
   name varchar NOT NULL,
   xml_id varchar NOT NULL,
   selection json NOT NULL
