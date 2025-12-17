@@ -6,6 +6,7 @@ import type { army } from "../utils/interfaces";
 import Modal from "../components/Modal.vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { currentArmyId } from "../stores/SideBarState";
 
 const rosterList = ref<army[]>([]);
 
@@ -55,16 +56,23 @@ onMounted(() => {
         id="roster-card"
         v-for="(item, index) in rosterList"
         :key="index"
-        class="bg-gray-200 rounded-lg h-64 w-64"
-        @click="router.push(`/army-builder/${item.id}`)"
+        class="bg-gray-200 rounded-lg h-64 w-64 p-4 shadow-lg"
+        @click="
+          () => {
+            router.push(`/army-builder/${item.id}`);
+            currentArmyId = item.id!;
+          }
+        "
       >
-        <h3 class="text-3xl font-semibold">{{ item.name }}</h3>
+        <h3 class="text-3xl font-semibold border-b-2 border-gray-400">
+          {{ item.name }}
+        </h3>
         <p>Points: {{ item.max_points }}</p>
         <p>ID: {{ item.id }}</p>
       </div>
       <div
         id="roster-create"
-        class="bg-gray-200 rounded-lg size-64 flex justify-center align-middle"
+        class="bg-gray-200 rounded-lg size-64 flex justify-center align-middle inset-shadow-sm"
       >
         <button class="text-8xl size-full" @click="showModal = true">+</button>
       </div>

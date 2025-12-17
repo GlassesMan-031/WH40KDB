@@ -6,7 +6,7 @@ import {
   WrenchScrewdriverIcon,
 } from "@heroicons/vue/24/outline";
 
-import { isSidebarCollapsed } from "../stores/SideBarState";
+import { isSidebarCollapsed, currentArmyId } from "../stores/SideBarState";
 
 const route = useRoute();
 
@@ -29,13 +29,14 @@ function toggleSidebar() {
       <span v-if="!isSidebarCollapsed">«</span>
       <span v-else>»</span>
     </button>
-
-    <h2
-      v-if="!isSidebarCollapsed"
-      class="text-2xl font-semibold mb-10 transition-opacity duration-300"
-    >
-      Menu
-    </h2>
+    <div class="mb-10 h-8">
+      <h2
+        v-if="!isSidebarCollapsed"
+        class="text-2xl font-semibold mb-0 transition-opacity duration-300"
+      >
+        Menu
+      </h2>
+    </div>
 
     <TransitionGroup
       name="fade-slide"
@@ -52,7 +53,7 @@ function toggleSidebar() {
           isSidebarCollapsed ? 'justify-center' : 'gap-3',
         ]"
       >
-        <UserIcon class="w-6 h-6 flex-shrink-0" />
+        <UserIcon class="w-6 h-6 shrink-0" />
         <span v-if="!isSidebarCollapsed">Profile</span>
       </RouterLink>
 
@@ -66,21 +67,22 @@ function toggleSidebar() {
           isSidebarCollapsed ? 'justify-center' : 'gap-3',
         ]"
       >
-        <ClipboardDocumentListIcon class="w-6 h-6 flex-shrink-0" />
+        <ClipboardDocumentListIcon class="w-6 h-6 shrink-0" />
         <span v-if="!isSidebarCollapsed">Army Roster</span>
       </RouterLink>
 
       <RouterLink
-        to="/army-builder"
+        v-if="currentArmyId != 0"
+        :to="`/army-builder/${currentArmyId}`"
         class="flex items-center px-3 py-2 rounded-md transition-all duration-200 hover:bg-gray-400"
         :class="[
-          route.path === '/army-builder'
+          route.path === `/army-builder/${currentArmyId}`
             ? 'bg-gray-400 font-bold border-l-4 border-amber-400'
             : 'border-l-4 border-transparent',
           isSidebarCollapsed ? 'justify-center' : 'gap-3',
         ]"
       >
-        <WrenchScrewdriverIcon class="w-6 h-6 flex-shrink-0" />
+        <WrenchScrewdriverIcon class="w-6 h-6 shrink-0" />
         <span v-if="!isSidebarCollapsed">Army Builder</span>
       </RouterLink>
     </TransitionGroup>
