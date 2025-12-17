@@ -5,6 +5,8 @@ import UnitSelectionCard from "../components/UnitSelectionCard.vue";
 import FinalArmyCard from "../components/ArmyCard.vue";
 import UnitEditor from "../components/UnitEditor.vue";
 
+const props = defineProps<{ id: number }>();
+
 type Unit = {
   id: number;
   name: string;
@@ -40,6 +42,7 @@ function showUnitEditor(id: number) {
       <UnitSelectionCard
         @select="handleUnitSelect"
         class="flex-1 max-w-md h-full"
+        :id="id"
       />
 
       <div class="h-full flex-1 flex flex-col gap-6">

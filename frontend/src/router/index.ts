@@ -18,7 +18,7 @@ const routes: RouteRecordRaw[] = [
     path: "/army-builder/:id",
     name: "ArmyBuilder",
     component: ArmyBuilderPage,
-    props: true,
+    props: (route) => ({ id: Number(route.params.id) }),
   },
 ];
 
