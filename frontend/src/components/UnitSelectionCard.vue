@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { extractPoints } from "../utils/CatHelpers.ts";
-
+import type { Unit } from "../utils/interfaces.ts";
 const props = defineProps<{
   id: number;
 }>();
@@ -10,12 +10,6 @@ const props = defineProps<{
 // hardcoded value for testing
 // const id = 1;
 
-type Unit = {
-  id: number;
-  name: string;
-  type: string;
-  points: number;
-};
 
 const units = ref<Unit[]>([]);
 const loading = ref(true);

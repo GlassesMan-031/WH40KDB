@@ -4,15 +4,9 @@ import Sidebar from "../components/SideBar.vue";
 import UnitSelectionCard from "../components/UnitSelectionCard.vue";
 import FinalArmyCard from "../components/ArmyCard.vue";
 import UnitEditor from "../components/UnitEditor.vue";
-
+import type { Unit } from "../utils/interfaces.ts";
 const props = defineProps<{ id: number }>();
 
-type Unit = {
-  id: number;
-  name: string;
-  type: string;
-  points: number;
-};
 
 const selectedUnits = ref<Unit[]>([]);
 function handleUnitSelect(unit: Unit) {

@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-
-type Unit = {
-  id: number;
-  name: string;
-  type: string;
-  points: number;
-};
+import type { Unit } from "../utils/interfaces.ts";
 
 const props = defineProps<{
   selectedUnits: Unit[];
