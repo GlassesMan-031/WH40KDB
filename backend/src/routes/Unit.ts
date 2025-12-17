@@ -1,7 +1,27 @@
 import express, { type Request, type Response } from 'express'
-import { insertUnit } from '../services/Unit.ts'
+import { insertUnit, getUnits } from '../services/Unit.ts'
 
 const router = express.Router()
+
+router.post('/get', async (req: Request, res: Response) => {
+  const { armyId, accountId } = req.body
+  console.log('/get')
+  console.log(req.body)
+  if (!armyId) return res.status(400).send('theres no armyId')
+  if (!accountId) return res.status(400).send('theres no accountId')
+
+  console.log('POST /get', {
+    armyId,
+    accountId,
+  })
+
+  const result = await getUnits(armyId, accountId)
+  if (result) {
+    res.status(200).json(result)
+  } else {
+    res.status(500).send('uh oh')
+  }
+})
 
 router.post('/:armyId', async (req: Request, res: Response) => {
   const armyIdParam = req.params.armyId
