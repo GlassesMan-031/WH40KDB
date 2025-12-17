@@ -14,7 +14,9 @@ export async function getArmy(req: Request, res: Response) {
   const result = await findArmyById(armyId)
   if (result) {
     res.status(200).send(result)
-  } else res.status(500).send("couldn't find the army")
+  } else {
+    res.status(500).send("couldn't find the army")
+  }
 }
 
 // post army "/army/" {username: string, email: string, password: string}
@@ -28,7 +30,11 @@ export async function newArmy(req: Request, res: Response) {
     armyObject.max_points,
   )
 
-  res.status(200).send(result)
+  if (result) {
+    res.status(200).json(result)
+  } else {
+    res.status(500).send('uh oh')
+  }
 }
 // post army "/army/" {username_or_email: string, password: string}
 export async function removeArmy(req: Request, res: Response) {

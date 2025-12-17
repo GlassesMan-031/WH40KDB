@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { ref } from "vue";
+import { setAccount, type accountState } from "../stores/globalState";
 
 const router = useRouter();
 
@@ -17,6 +18,12 @@ function handleLogin() {
     })
     .then((res) => {
       console.log(res);
+      const account: accountState = {
+        id: res.data.id,
+        username: username.value,
+        email: res.data.email,
+      };
+      setAccount(account);
       if (res.status === 200) {
         router.push("/army-roster");
       }

@@ -14,7 +14,12 @@ const routes: RouteRecordRaw[] = [
   { path: "/register", name: "Register", component: RegisterPage },
   { path: "/profile", name: "Profile", component: ProfilePage },
   { path: "/army-roster", name: "ArmyRoster", component: ArmyRosterPage },
-  { path: "/army-builder", name: "ArmyBuilder", component: ArmyBuilderPage },
+  {
+    path: "/army-builder/:id",
+    name: "ArmyBuilder",
+    component: ArmyBuilderPage,
+    props: true,
+  },
 ];
 
 const router = createRouter({

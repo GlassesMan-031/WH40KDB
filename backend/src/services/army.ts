@@ -3,8 +3,9 @@ import db from '../db/db.ts'
 // get army "/army/" {username_or_email: string, password: string}
 export async function findArmyById(id: number) {
   const result = await db
-    .one(`SELECT * FROM army WHERE army.id = $1`, [id])
+    .any(`SELECT * FROM army WHERE army.owner_id = $1`, [id])
     .then((data) => {
+      console.log(data)
       return data
     })
     .catch((err) => {
@@ -25,11 +26,14 @@ export async function insertArmy(
 ) {
   const result = await db
     .one(
-      `INSERT INTO army(owner_id, name, max_points) VALUES($1, $2, $3) RETURNING *`,
+      `INSERT INTO army(owner_id, name, max_points) VALUES($1, $2, $3) RETURNING id, owner_id, name, max_points`,
       [owner_id, name, max_points],
     )
     .then((data) => {
       return data
+    })
+    .catch((err) => {
+      return false
     })
   console.log(result)
   return result
