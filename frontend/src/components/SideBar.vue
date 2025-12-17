@@ -24,12 +24,12 @@ function toggleSidebar() {
   >
     <button
       @click="toggleSidebar"
-      class="absolute top-4 right-4 bg-gray-400 hover:bg-gray-500 text-white rounded-full p-1 shadow-md transition-all duration-200 w-6 h-6 flex items-center justify-center"
+      class="absolute top-4 right-4 bg-gray-400 hover:bg-gray-500 text-white rounded-full p-1 shadow-md transition-all duration-200 size-8 flex items-center justify-center text-2xl text-center"
     >
       <span v-if="!isSidebarCollapsed">«</span>
       <span v-else>»</span>
     </button>
-    <div class="mb-10 h-8">
+    <div class="pb-10 h-8 border-b-2 border-gray-400">
       <h2
         v-if="!isSidebarCollapsed"
         class="text-2xl font-semibold mb-0 transition-opacity duration-300"
