@@ -5,7 +5,8 @@ import { onMounted, ref, watch } from "vue";
 import EntryGroupBlock from "./EntryGroupBlock.vue";
 
 type Unit = {
-  id: number;
+  id?: number;
+  xml_id: string;
   name: string;
   type: string;
   points: number;
@@ -13,6 +14,7 @@ type Unit = {
 
 const props = defineProps<{
   unitData: Unit;
+  cat: any;
 }>();
 
 const unitProfile = ref<any | null>(null);
@@ -20,15 +22,13 @@ const unitSelections = ref<selectionGroup | null>(null);
 
 async function fetchUnitData() {
   try {
-    const { data } = await axios.get("/api/cat");
-
-    const entries: any[] =
-      data?.catalogue?.sharedSelectionEntries?.selectionEntry ?? [];
-    unitProfile.value = entries.find((entry) => entry.id === props.unitData.id);
+    unitProfile.value = props.cat.find((entry: any) => {
+      return entry.id === props.unitData.xml_id;
+    });
 
     function selectionGroupCrawl(group: any, is_root: boolean): selectionGroup {
-      console.log("newCrawl");
-      console.log(group);
+      // console.log("newCrawl");
+      // console.log(group);
       let firstSelectable = true;
       let newGroup: selectionGroup = {
         type: "group",
