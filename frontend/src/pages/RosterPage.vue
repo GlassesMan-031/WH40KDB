@@ -49,9 +49,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="h-full w-full flex flex-row">
+  <div class="h-full w-full flex flex-row bg-gray-300">
     <Sidebar />
-    <div id="roster-list" class="flex flex-row flex-wrap gap-4 m-4">
+    <div id="roster-list" class="flex flex-row flex-wrap gap-4 p-8">
       <div
         id="roster-card"
         v-for="(item, index) in rosterList"
@@ -64,11 +64,11 @@ onMounted(() => {
           }
         "
       >
-        <h3 class="text-3xl font-semibold border-b-2 border-gray-400">
+        <h3 class="text-3xl font-semibold border-b-2 border-gray-400 mb-2">
           {{ item.name }}
         </h3>
         <p>Points: {{ item.max_points }}</p>
-        <p>ID: {{ item.id }}</p>
+        <p class="">ID: {{ item.id }}</p>
       </div>
       <div
         id="roster-create"
