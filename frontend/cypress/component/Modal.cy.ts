@@ -13,6 +13,15 @@ describe("Modal.cy.ts", () => {
     cy.get(".modal-mask").should("exist");
     cy.get(".modal-mask > .modal-wrapper").should("exist");
     cy.get(".modal-mask > .modal-wrapper > .modal-container").should("exist");
+    cy.get(
+      ".modal-mask > .modal-wrapper > .modal-container > .modal-header",
+    ).should("exist");
+    cy.get(
+      ".modal-mask > .modal-wrapper > .modal-container > .modal-body",
+    ).should("exist");
+    cy.get(
+      ".modal-mask > .modal-wrapper > .modal-container > .modal-footer",
+    ).should("exist");
   });
 
   it("should have the correct header", () => {
@@ -26,8 +35,8 @@ describe("Modal.cy.ts", () => {
       },
     });
 
-    cy.get("#modal-header").should("exist");
-    cy.get("#modal-header").should("have.text", headerName);
+    cy.get(".modal-header").should("exist");
+    cy.get(".modal-header").should("have.text", headerName);
   });
 
   it("should have the correct body", () => {
@@ -41,8 +50,8 @@ describe("Modal.cy.ts", () => {
       },
     });
 
-    cy.get("#modal-body").should("exist");
-    cy.get("#modal-body").should("have.text", bodyName);
+    cy.get(".modal-body").should("exist");
+    cy.get(".modal-body").should("have.text", bodyName);
   });
 
   it("should have the correct footer", () => {
@@ -56,8 +65,7 @@ describe("Modal.cy.ts", () => {
       },
     });
 
-    cy.get("#modal-footer").should("exist");
-    cy.get("#modal-footer").should("have.text", footerName);
+    cy.get(".modal-footer").should("exist");
+    cy.get(".modal-footer").should("have.text", footerName);
   });
 });
-
