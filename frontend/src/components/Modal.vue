@@ -1,7 +1,29 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps({
+  dismissable: Boolean,
+});
+
+const show = defineModel<boolean>("show", { default: false, required: true });
+
+function dismiss(event: PointerEvent) {
+  console.log("dismiss");
+  console.log(props.dismissable);
+  if (event.target instanceof Element && props.dismissable) {
+    console.log("target is Element");
+    console.log(event.target);
+    if (
+      event.target.className === "modal-mask" ||
+      event.target.className === "modal-wrapper"
+    ) {
+      console.log("target is mask");
+      show.value = false;
+    }
+  }
+}
+</script>
 
 <template>
-  <div class="modal-mask" @click="$emit('maskclick')">
+  <div class="modal-mask" @click="dismiss">
     <div class="modal-wrapper">
       <div id="modal" class="modal-container shadow-2xl">
         <div class="modal-header"><slot name="header"></slot></div>

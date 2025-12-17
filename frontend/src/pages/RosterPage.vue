@@ -4,8 +4,9 @@ import Sidebar from "../components/SideBar.vue";
 import { getAccount, type accountState } from "../stores/globalState";
 import type { army } from "../utils/interfaces";
 import Modal from "../components/Modal.vue";
+import axios from "axios";
 
-const rosterList = ref([1, 2]);
+const rosterList = ref<army[]>([]);
 
 const account: accountState = getAccount();
 
@@ -23,9 +24,15 @@ function createNewArmy(event: SubmitEvent) {
     name: "testArmy",
     max_points: 2000,
   };
+  console.log("sending army");
+  axios.post("api/army", newArmy).then((res) => {
+    console.log(res);
 
-  showModal.value = false;
-  return;
+    if (res.status === 200) {
+      showModal.value = false;
+      rosterList.value = [...rosterList.value, res.data];
+    }
+  });
 }
 </script>
 
@@ -35,7 +42,7 @@ function createNewArmy(event: SubmitEvent) {
     <div id="roster-list" class="flex flex-row flex-wrap gap-4 m-4">
       <div
         id="roster-card"
-        v-for="(item, index) in rosterList"
+        v-for="(_item, index) in rosterList"
         :key="index"
         class="bg-gray-200 rounded-lg h-64 w-64"
       >
@@ -50,7 +57,7 @@ function createNewArmy(event: SubmitEvent) {
       </div>
     </div>
   </div>
-  <Modal v-if="showModal" @maskclick="showModal = false">
+  <Modal v-if="showModal" dismissable v-model:show="showModal">
     <template #header>
       <h3 class="text-3xl font-semibold shrink-0">New Army</h3>
     </template>
