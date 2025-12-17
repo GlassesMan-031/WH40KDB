@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Sidebar from "../components/SideBar.vue";
 import { getAccount, type accountState } from "../stores/globalState";
 import type { army } from "../utils/interfaces";
 import Modal from "../components/Modal.vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 const rosterList = ref<army[]>([]);
 
 const account: accountState = getAccount();
+const router = useRouter();
 
 const showModal = ref(false);
+
+const armyName = ref("");
+const armyPoints = ref(0);
 
 function createNewArmy(event: SubmitEvent) {
   // implement create new army here?
@@ -21,11 +26,11 @@ function createNewArmy(event: SubmitEvent) {
   }
   const newArmy: army = {
     owner_id: account.id,
-    name: "testArmy",
-    max_points: 2000,
+    name: armyName.value,
+    max_points: armyPoints.value,
   };
   console.log("sending army");
-  axios.post("api/army", newArmy).then((res) => {
+  axios.post("api/army/", newArmy).then((res) => {
     console.log(res);
 
     if (res.status === 200) {
@@ -34,6 +39,12 @@ function createNewArmy(event: SubmitEvent) {
     }
   });
 }
+
+onMounted(() => {
+  axios.get(`api/army/${account.id}`).then((res) => {
+    rosterList.value = res.data;
+  });
+});
 </script>
 
 <template>
@@ -42,12 +53,14 @@ function createNewArmy(event: SubmitEvent) {
     <div id="roster-list" class="flex flex-row flex-wrap gap-4 m-4">
       <div
         id="roster-card"
-        v-for="(_item, index) in rosterList"
+        v-for="(item, index) in rosterList"
         :key="index"
         class="bg-gray-200 rounded-lg h-64 w-64"
+        @click="router.push(`/army-builder/${item.id}`)"
       >
-        <h3 class="text-3xl font-semibold">Army name</h3>
-        <p>index: {{ index }}</p>
+        <h3 class="text-3xl font-semibold">{{ item.name }}</h3>
+        <p>Points: {{ item.max_points }}</p>
+        <p>ID: {{ item.id }}</p>
       </div>
       <div
         id="roster-create"
@@ -70,6 +83,9 @@ function createNewArmy(event: SubmitEvent) {
             type="text"
             placeholder="Army name"
             class="border-b-2 border-gray-400 w-3/5"
+            @change="
+              (event) => (armyName = (event.target as HTMLInputElement).value)
+            "
           />
         </div>
         <div class="flex flex-row gap-4">
@@ -82,7 +98,12 @@ function createNewArmy(event: SubmitEvent) {
             step="100"
             max="9999"
             placeholder="0"
+            @change="
+              (event) =>
+                (armyPoints = Number((event.target as HTMLInputElement).value))
+            "
           />
+          <p>{{ armyPoints }}</p>
         </div>
         <button type="submit">Create</button>
       </form>
