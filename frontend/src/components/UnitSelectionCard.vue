@@ -4,11 +4,11 @@ import axios from "axios";
 import { extractPoints } from "../utils/CatHelpers.ts";
 
 const props = defineProps<{
-  armyId: number;
+  id: number;
 }>();
 
 // hardcoded value for testing
-// const armyId = 1; 
+// const id = 1;
 
 type Unit = {
   id: number;
@@ -26,30 +26,26 @@ const emit = defineEmits<{
   (e: "select", unit: Unit): void;
 }>();
 
-
 async function selectUnit(unit: Unit) {
   selectedUnitId.value = unit.id;
   emit("select", unit);
 
-  if (!props.armyId) {
-    console.error("armyId is missing!");
+  if (!props.id) {
+    console.error("id is missing!");
     return;
   }
 
   console.log("Posting unit to backend", {
-    armyId: props.armyId,
+    id: props.id,
     unit,
   });
 
   try {
-    const response = await axios.post(
-      `api/unit/${props.armyId}`,
-      {
-        name: unit.name,
-        xml_id: unit.id.toString(),
-        selection: unit,
-      }
-    );
+    const response = await axios.post(`/api/unit/${props.id}`, {
+      name: unit.name,
+      xml_id: unit.id.toString(),
+      selection: unit,
+    });
     console.log("Unit saved successfully:", response.data);
   } catch (err) {
     console.error("Failed to save unit:", err);
@@ -88,6 +84,7 @@ onMounted(() => fetchUnits());
 
 <template>
   <section class="bg-gray-200 rounded-lg shadow-md p-6 flex flex-col h-full">
+    <p>{{ id }}</p>
     <h3 class="text-xl font-semibold mb-4 flex-shrink-0">Unit Selection</h3>
 
     <p v-if="loading" class="text-gray-600">Loading units…</p>
