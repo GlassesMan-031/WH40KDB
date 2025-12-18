@@ -112,12 +112,12 @@ onMounted(async () => {
         </section>
       </div>
 
-      <div class="h-full flex-1 flex flex-col gap-6">
+      <div class="h-full flex-1 flex flex-col gap-6 max-h-full">
         <FinalArmyCard
           v-if="cat != undefined"
           :selectedUnits="selectedUnits"
           @unit-clicked="showUnitEditor"
-          class="lg:max-w-md xl:max-w-full flex-2"
+          class="lg:max-w-md xl:max-w-full flex-2 max-h-auto min-h-0"
         />
         <div v-else class="lg:max-w-md xl:max-w-full flex-2">
           <section

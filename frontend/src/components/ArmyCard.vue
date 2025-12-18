@@ -2,7 +2,6 @@
 import { computed } from "vue";
 import type { Unit } from "../utils/interfaces.ts";
 
-
 const props = defineProps<{
   selectedUnits: Unit[];
 }>();
