@@ -5,6 +5,7 @@ import { extractPoints } from "../utils/CatHelpers.ts";
 import type { Unit } from "../utils/interfaces.ts";
 const props = defineProps<{
   id: number;
+  length: number;
   cat: any;
 }>();
 
@@ -15,6 +16,7 @@ const units = ref<Unit[]>([]);
 const loading = ref(true);
 const error = ref<string | null>(null);
 const selectedUnitId = ref<string | null>(null);
+let newLength: number = 0;
 
 const emit = defineEmits<{
   (e: "select", unit: Unit): void;
@@ -22,7 +24,10 @@ const emit = defineEmits<{
 
 async function selectUnit(unit: Unit) {
   selectedUnitId.value = unit.xml_id;
-  emit("select", unit);
+  let newId = props.length > newLength ? props.length : newLength;
+  let unitWithId = { id: newId, ...unit };
+  newLength = newId + 1;
+  emit("select", unitWithId);
 
   if (!props.id) {
     console.error("id is missing!");

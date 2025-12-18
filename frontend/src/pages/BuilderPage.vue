@@ -86,6 +86,7 @@ onMounted(async () => {
         class="flex-1 max-w-md h-full"
         :id="id"
         :cat="cat"
+        :length="selectedUnits.length"
         v-if="cat != undefined"
       />
       <div v-else class="flex-1 max-w-md h-full">
