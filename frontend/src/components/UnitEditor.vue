@@ -4,10 +4,10 @@ import type { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
 import { onMounted, ref, watch } from "vue";
 import EntryGroupBlock from "./EntryGroupBlock.vue";
 import type { Unit } from "../utils/interfaces.ts";
-
-
+  
 const props = defineProps<{
   unitData: Unit;
+  cat: any;
 }>();
 
 const unitProfile = ref<any | null>(null);
@@ -15,15 +15,13 @@ const unitSelections = ref<selectionGroup | null>(null);
 
 async function fetchUnitData() {
   try {
-    const { data } = await axios.get("/api/cat");
-
-    const entries: any[] =
-      data?.catalogue?.sharedSelectionEntries?.selectionEntry ?? [];
-    unitProfile.value = entries.find((entry) => entry.id === props.unitData.id);
+    unitProfile.value = props.cat.find((entry: any) => {
+      return entry.id === props.unitData.xml_id;
+    });
 
     function selectionGroupCrawl(group: any, is_root: boolean): selectionGroup {
-      console.log("newCrawl");
-      console.log(group);
+      // console.log("newCrawl");
+      // console.log(group);
       let firstSelectable = true;
       let newGroup: selectionGroup = {
         type: "group",

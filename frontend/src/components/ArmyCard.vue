@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import type { Unit } from "../utils/interfaces.ts";
 
+
 const props = defineProps<{
   selectedUnits: Unit[];
 }>();
@@ -43,7 +44,7 @@ const totalPoints = computed(() =>
 
     <div
       v-if="props.selectedUnits.length > 0"
-      class="mt-4 flex justify-between font-semibold text-gray-800 flex-shrink-0"
+      class="mt-4 flex justify-between font-semibold text-gray-800 shrink-0"
     >
       <span>Total Points:</span>
       <span>{{ totalPoints }} pts</span>
