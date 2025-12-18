@@ -4,6 +4,7 @@ import Sidebar from "../components/SideBar.vue";
 import UnitSelectionCard from "../components/UnitSelectionCard.vue";
 import FinalArmyCard from "../components/ArmyCard.vue";
 import UnitEditor from "../components/UnitEditor.vue";
+import type { Unit } from "../utils/interfaces.ts";
 import { getAccount } from "../stores/globalState";
 import axios from "axios";
 import type { selectionGroup } from "../utils/interfaces";
@@ -11,13 +12,6 @@ import type { selectionGroup } from "../utils/interfaces";
 const props = defineProps<{ id: number }>();
 const account = getAccount();
 
-type Unit = {
-  id?: number;
-  xml_id: string;
-  name: string;
-  type: string;
-  points: number;
-};
 
 const selectedUnits = ref<Unit[]>([]);
 function handleUnitSelect(unit: Unit) {

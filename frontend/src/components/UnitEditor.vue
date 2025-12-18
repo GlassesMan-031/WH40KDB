@@ -3,15 +3,8 @@ import axios from "axios";
 import type { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
 import { onMounted, ref, watch } from "vue";
 import EntryGroupBlock from "./EntryGroupBlock.vue";
-
-type Unit = {
-  id?: number;
-  xml_id: string;
-  name: string;
-  type: string;
-  points: number;
-};
-
+import type { Unit } from "../utils/interfaces.ts";
+  
 const props = defineProps<{
   unitData: Unit;
   cat: any;
