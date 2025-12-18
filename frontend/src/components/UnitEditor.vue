@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import axios from "axios";
 import type { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
 import { onMounted, ref, watch } from "vue";
 import EntryGroupBlock from "./EntryGroupBlock.vue";

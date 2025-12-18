@@ -45,8 +45,10 @@ export interface selectionEntry {
 
 // frontend
 export interface Unit {
-  id: number;
+  id?: number;
   name: string;
   type: string;
   points: number;
+  xml_id: string;
+
 }

@@ -7,11 +7,10 @@ import UnitEditor from "../components/UnitEditor.vue";
 import type { Unit } from "../utils/interfaces.ts";
 import { getAccount } from "../stores/globalState";
 import axios from "axios";
-import type { selectionGroup } from "../utils/interfaces";
+// import type { selectionGroup } from "../utils/interfaces";
 
 const props = defineProps<{ id: number }>();
 const account = getAccount();
-
 
 const selectedUnits = ref<Unit[]>([]);
 function handleUnitSelect(unit: Unit) {
@@ -24,7 +23,7 @@ const showEditor = ref(false);
 const selectedUnit = ref<Unit | null>(null);
 
 const cat = ref(undefined);
-const selectedUnitsData = ref<selectionGroup[]>([]);
+// const selectedUnitsData = ref<selectionGroup[]>([]);
 
 async function fetchUnitData() {
   try {
@@ -70,7 +69,7 @@ function fetchUnits() {
     });
 }
 
-function fetchCat() {}
+// function fetchCat() {}
 
 onMounted(async () => {
   fetchUnits();
@@ -100,7 +99,7 @@ onMounted(async () => {
           >
             <ul class="flex flex-col gap-2 animate-pulse">
               <li
-                v-for="(unit, index) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
+                v-for="(_unit, index) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
                 :key="index"
               >
                 <button
