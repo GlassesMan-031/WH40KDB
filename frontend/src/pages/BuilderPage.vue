@@ -46,6 +46,7 @@ function showUnitEditor(id: number) {
   showEditor.value = true;
 }
 
+// gets content of army already in backend
 function fetchUnits() {
   axios
     .post("/api/unit/get", { armyId: props.id, accountId: account.id })

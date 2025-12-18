@@ -51,6 +51,7 @@ async function selectUnit(unit: Unit) {
   }
 }
 
+// goes through battlescribe data
 async function fetchUnits() {
   loading.value = true;
   error.value = null;

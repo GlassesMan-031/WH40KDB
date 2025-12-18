@@ -3,7 +3,7 @@ import type { selectionEntry, selectionGroup } from "../utils/interfaces.ts";
 import { onMounted, ref, watch } from "vue";
 import EntryGroupBlock from "./EntryGroupBlock.vue";
 import type { Unit } from "../utils/interfaces.ts";
-  
+
 const props = defineProps<{
   unitData: Unit;
   cat: any;
@@ -82,7 +82,7 @@ async function fetchUnitData() {
         // );
         let newEntryGroup: selectionGroup = selectionGroupCrawl(
           group.selectionEntryGroups.selectionEntryGroup,
-          false,
+          false
         );
         newGroup.data.push(newEntryGroup);
       }
