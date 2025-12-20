@@ -2,9 +2,19 @@
   <div class="page register">
     <h2>Register</h2>
     <form @submit="signup($event)">
-      <input v-model="username" type="text" placeholder="Username" />
-      <input v-model="email" type="email" placeholder="Email" />
-      <input v-model="password" type="password" placeholder="Password" />
+      <input
+        id="username"
+        v-model="username"
+        type="text"
+        placeholder="Username"
+      />
+      <input id="email" v-model="email" type="email" placeholder="Email" />
+      <input
+        id="password"
+        v-model="password"
+        type="password"
+        placeholder="Password"
+      />
       <button type="submit">Create account</button>
     </form>
   </div>
