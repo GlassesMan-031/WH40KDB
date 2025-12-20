@@ -19,6 +19,7 @@ export interface army {
   created_at?: string;
 }
 
+// API 
 export interface unit {
   id?: number;
   army_id: number;
@@ -40,4 +41,14 @@ export interface selectionEntry {
   name: string;
   xml_id: string;
   checked: boolean;
+}
+
+// frontend
+export interface Unit {
+  id?: number;
+  name: string;
+  type: string;
+  points: number;
+  xml_id: string;
+
 }
