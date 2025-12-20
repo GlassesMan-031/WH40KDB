@@ -78,4 +78,13 @@ describe("WH40K Builder", () => {
     cy.get("#roster-card > h3").first().should("have.text", "cypressArmy1");
     cy.get("#roster-card > p").first().should("have.text", "Points: 2000");
   });
+
+  it("should delete account after tests", () => {
+    cy.request("DELETE", "http://localhost:5173/api/account", {
+      username_or_email: "cypresstest",
+      password: "cypresstest",
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+    });
+  });
 });
