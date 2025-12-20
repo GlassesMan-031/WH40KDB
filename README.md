@@ -2,7 +2,7 @@
 
 ## A project for the course "Testing and Typescript"
 
-[https://github.com/GlassesMan-031/WH40KDB/tree/main](github link)
+[github link](https://github.com/GlassesMan-031/WH40KDB/tree/main)
 Fullstack WH40K Database with purpose of creating a forum for handlng WH40K armielists.
 
 ## TDD Links
