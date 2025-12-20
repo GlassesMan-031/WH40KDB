@@ -1,4 +1,6 @@
 describe("WH40K Builder", () => {
+  let accountID = 0;
+
   beforeEach(() => {
     // cy.origin("http://localhost:5173", () => {
     cy.visit("http://localhost:5173/");
@@ -46,5 +48,34 @@ describe("WH40K Builder", () => {
     cy.get("button").click();
 
     cy.url().should("eq", "http://localhost:5173/army-roster");
+  });
+
+  it("User can create new Roster", () => {
+    // Login
+    cy.get("button").should("exist");
+    cy.get("button").click();
+
+    cy.url().should("eq", "http://localhost:5173/login");
+
+    cy.get("#username").type("cypresstest");
+    cy.get("#password").type("cypresstest");
+
+    cy.get("button").click();
+
+    cy.url().should("eq", "http://localhost:5173/army-roster");
+
+    // create new army roster
+    cy.get("#roster-create").click();
+
+    // army modal
+    cy.get(".modal-mask").should("exist");
+    cy.get("#army-name").type("cypressArmy1");
+    cy.get("#army-number").type("2000");
+
+    cy.get("#army-create").click();
+
+    // army card
+    cy.get("#roster-card > h3").first().should("have.text", "cypressArmy1");
+    cy.get("#roster-card > p").first().should("have.text", "Points: 2000");
   });
 });

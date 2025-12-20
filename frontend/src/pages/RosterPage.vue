@@ -113,7 +113,7 @@ onMounted(() => {
           />
           <p>{{ armyPoints }}</p>
         </div>
-        <button type="submit">Create</button>
+        <button id="army-create" type="submit">Create</button>
       </form>
     </template>
   </Modal>
