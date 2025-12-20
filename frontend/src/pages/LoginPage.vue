@@ -45,12 +45,14 @@ function goToRegister() {
       </h1>
 
       <input
+        id="username"
         v-model="username"
         type="text"
         placeholder="Username"
         class="w-3/4 max-w-[400px] mb-6 p-4 rounded-lg text-black bg-gray-200 mx-auto"
       />
       <input
+        id="password"
         v-model="password"
         type="password"
         placeholder="Password"
@@ -67,6 +69,7 @@ function goToRegister() {
       <p class="text-white mt-4">
         <span>New user? </span>
         <span
+          id="register-button"
           @click="goToRegister"
           class="underline cursor-pointer hover:text-teal-400 transition-colors duration-200"
         >

@@ -37,6 +37,7 @@ function signup(event: SubmitEvent) {
 
       <form @submit="signup($event)" class="flex flex-col items-center">
         <input
+          id="username"
           v-model="username"
           type="text"
           placeholder="Username"
@@ -44,6 +45,7 @@ function signup(event: SubmitEvent) {
         />
 
         <input
+          id="email"
           v-model="email"
           type="email"
           placeholder="Email"
@@ -51,6 +53,7 @@ function signup(event: SubmitEvent) {
         />
 
         <input
+          id="password"
           v-model="password"
           type="password"
           placeholder="Password"
