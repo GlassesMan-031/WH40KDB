@@ -19,8 +19,7 @@ TDD PRs and commits for Sebastian
 
 ### Kare
 
-Insert TDD links here
-Markdown links are written as
+https://github.com/GlassesMan-031/WH40KDB/commit/f5886256e835ffa9a29ee92a340a9d9834165ab0
 
 ```Markdown
 [text](link)
