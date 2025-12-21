@@ -79,11 +79,21 @@ onMounted(() => fetchUnits());
 </script>
 
 <template>
-  <section class="bg-gray-200 rounded-lg shadow-md p-6 flex flex-col h-full">
+  <section
+    data-cy="unit-selection-card"
+    class="bg-gray-200 rounded-lg shadow-md p-6 flex flex-col h-full"
+  >
     <h3 class="text-xl font-semibold mb-4 shrink-0">Unit Selection</h3>
 
-    <p v-if="loading" class="text-gray-600">Loading units…</p>
-    <p v-else-if="units.length === 0" class="text-gray-600">
+    <p v-if="loading" data-cy="unit-loading" class="text-gray-600">
+      Loading units…
+    </p>
+
+    <p
+      v-else-if="units.length === 0"
+      data-cy="unit-empty"
+      class="text-gray-600"
+    >
       No units available.
     </p>
 
@@ -91,9 +101,10 @@ onMounted(() => fetchUnits());
       v-else
       class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
     >
-      <ul class="flex flex-col gap-2">
-        <li v-for="unit in units" :key="unit.id">
+      <ul data-cy="unit-list" class="flex flex-col gap-2">
+        <li v-for="unit in units" :key="unit.xml_id">
           <button
+            data-cy="unit-button"
             @click="selectUnit(unit)"
             class="w-full mx-1 flex justify-between items-center p-3 rounded-md transition bg-gray-100 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             :class="{
@@ -102,13 +113,18 @@ onMounted(() => fetchUnits());
           >
             <span class="flex items-center gap-1">
               {{ unit.name }}
-              <span v-if="unit.type === 'model'" class="text-gray-500 text-sm"
-                >(model)</span
+              <span
+                v-if="unit.type === 'model'"
+                data-cy="unit-model-tag"
+                class="text-gray-500 text-sm"
               >
+                (model)
+              </span>
             </span>
-            <span class="font-semibold text-gray-700"
-              >{{ unit.points }} pts</span
-            >
+
+            <span data-cy="unit-points" class="font-semibold text-gray-700">
+              {{ unit.points }} pts
+            </span>
           </button>
         </li>
       </ul>

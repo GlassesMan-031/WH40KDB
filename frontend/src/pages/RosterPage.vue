@@ -57,6 +57,7 @@ onMounted(() => {
         v-for="(item, index) in rosterList"
         :key="index"
         class="bg-gray-200 rounded-lg h-64 w-64 p-4 shadow-lg"
+        data-cy="army-list-item"
         @click="
           () => {
             router.push(`/army-builder/${item.id}`);
@@ -73,17 +74,18 @@ onMounted(() => {
       <div
         id="roster-create"
         class="bg-gray-200 rounded-lg size-64 flex justify-center align-middle inset-shadow-sm"
+        data-cy="new-army-button"
       >
-        <button class="text-8xl size-full" @click="showModal = true">+</button>
+        <button class="text-8xl size-full">+</button>
       </div>
     </div>
   </div>
-  <Modal v-if="showModal" dismissable v-model:show="showModal">
+  <Modal v-if="showModal" dismissable v-model:show="showModal" data-cy="new-army-modal">
     <template #header>
       <h3 class="text-3xl font-semibold shrink-0">New Army</h3>
     </template>
     <template #body>
-      <form @submit="createNewArmy($event)" class="flex flex-col gap-4">
+      <form @submit="createNewArmy($event)" class="flex flex-col gap-4" data-cy="new-army-form">
         <div class="flex flex-row gap-4">
           <label for="army-name">Name:</label>
           <input
@@ -91,6 +93,7 @@ onMounted(() => {
             type="text"
             placeholder="Army name"
             class="border-b-2 border-gray-400 w-3/5"
+            data-cy="army-name-input"
             @change="
               (event) => (armyName = (event.target as HTMLInputElement).value)
             "
@@ -106,6 +109,7 @@ onMounted(() => {
             step="100"
             max="9999"
             placeholder="0"
+            data-cy="army-points-input"
             @change="
               (event) =>
                 (armyPoints = Number((event.target as HTMLInputElement).value))
@@ -113,11 +117,13 @@ onMounted(() => {
           />
           <p>{{ armyPoints }}</p>
         </div>
-        <button id="army-create" type="submit">Create</button>
+        <button id="army-create" type="submit" data-cy="submit-army-button">Create</button>
       </form>
     </template>
   </Modal>
 </template>
+
+
 
 <style scoped>
 .page {
